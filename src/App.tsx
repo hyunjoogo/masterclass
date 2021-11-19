@@ -2,8 +2,9 @@ import Router from "./Router";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
 import {ReactQueryDevtools} from "react-query/devtools"
 import {darkTheme, lightTheme} from "./theme";
-import {useRecoilValue} from "recoil";
-import {isDarkAtom} from "./atoms";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atoms";
+
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
