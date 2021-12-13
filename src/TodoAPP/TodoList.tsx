@@ -19,7 +19,6 @@ function TodoList() {
     setValue("toDo", "");
   };
 
-
   return (
     <div>
       <form onSubmit={handleSubmit(handleValid)} >

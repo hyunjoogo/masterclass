@@ -76,7 +76,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
+function TodoApp() {
   return (
     <>
       <GlobalStyle/>
@@ -85,4 +85,4 @@ function App() {
   )
 }
 
-export default App;
+export default TodoApp;
