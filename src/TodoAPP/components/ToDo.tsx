@@ -1,5 +1,5 @@
 import React from "react";
-import {IToDo, toDoState} from "../atoms";
+import {Categories, IToDo, toDoState} from "../atoms";
 import {useSetRecoilState} from "recoil";
 
 const ToDo = ({text, category, id}: IToDo) => {
@@ -15,10 +15,16 @@ const ToDo = ({text, category, id}: IToDo) => {
   return (
     <li>
       <span>{text}</span>
-      {category !== "DOING" && <button name="DOING" onClick={onClick}>Doing</button>}
-      {category !== "TO_DO" && <button name="TO_DO" onClick={onClick}>To Do</button>}
-      {category !== "DONE" && <button name="DONE" onClick={onClick}>Done</button>}
-      {id}
+      {(category !== Categories.DOING && category !== Categories.DELETE) &&
+        <button name={Categories.DOING} onClick={onClick}>Doing</button>}
+      {category !== Categories.TO_DO &&
+        <button name={Categories.TO_DO} onClick={onClick}>To Do</button>}
+      {(category !== Categories.DONE && category !== Categories.DELETE) &&
+        <button name={Categories.DONE} onClick={onClick}>Done</button>}
+      {category !== Categories.DELETE &&
+        <button name={Categories.DELETE} onClick={onClick}>Delete</button>}
+
+
     </li>
   )
 }
@@ -26,4 +32,7 @@ const ToDo = ({text, category, id}: IToDo) => {
 export default ToDo;
 
 
-// 1) id로 toDo를 찾아야 한다. (index만 알면 된다)
+// 삭제했을 경우에는 다시 돌릴 수 있게 To DO 버튼만 보이게하기
+// 카테고리가 삭제 일 때
+// category !== Categories.TO_DO => 카테고리가 투두가 아니면
+// 카테고리가 투두가 아니고 카테고리가
