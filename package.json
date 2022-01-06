@@ -6,7 +6,6 @@
     "@craco/craco": "^6.4.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
-    "@testing-library/user-": "^12.8.3",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.7",
     "@types/react": "^17.0.34",
