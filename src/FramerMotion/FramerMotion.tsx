@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import {motion} from "framer-motion"
-import Variants from "./Variants";
-import Animation from "./Animation";
 
 
 const FramerMotion = () => {

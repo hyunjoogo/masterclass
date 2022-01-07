@@ -1,21 +1,28 @@
 import React from "react";
 import {RecoilRoot} from "recoil";
-import {ThemeProvider} from "styled-components";
+import styled, {ThemeProvider} from "styled-components";
 import {darkTheme} from "./TodoAPP/theme";
 import TodoApp from "./TodoAPP/TodoApp";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import FramerMotionWrapper from "./FramerMotion/FramerMotionWrapper";
+import Trello from "./Trello/Trello"
 
+const LinkWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const LectureList = () => {
-
-
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <Link to="/todoList">TODOLIST</Link>
-          <Link to="/framerMotion">MOTION</Link>
+          <LinkWrapper>
+            <Link to="/todoList">TODOLIST</Link>
+            <Link to="/framerMotion">MOTION</Link>
+            <Link to="/trello">TRELLO</Link>
+          </LinkWrapper>
+
         </Route>
         <Route path="/todoList">
           <RecoilRoot>
@@ -26,6 +33,11 @@ const LectureList = () => {
         </Route>
         <Route path="/framerMotion">
           <FramerMotionWrapper/>
+        </Route>
+        <Route path="/trello">
+          <RecoilRoot>
+            <Trello/>
+          </RecoilRoot>
         </Route>
 
 
