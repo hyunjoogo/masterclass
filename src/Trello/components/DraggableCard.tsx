@@ -16,14 +16,15 @@ const Card = styled.li<ICardProps>`
 `;
 
 interface IDragabbleCardProps {
-  toDo: string;
+  toDoId: number;
+  toDoText: string;
   index: number;
 }
 
-const DraggableCard = ({index, toDo}: IDragabbleCardProps) => {
+const DraggableCard = ({index, toDoId, toDoText}: IDragabbleCardProps) => {
 
   return (
-    <Draggable draggableId={toDo} index={index}>
+    <Draggable draggableId={toDoId + ""} index={index}>
       {(provided, snapshot) => (
         <Card
           isDragging={snapshot.isDragging}
@@ -31,7 +32,7 @@ const DraggableCard = ({index, toDo}: IDragabbleCardProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {toDo}
+          {toDoText}
         </Card>
       )}
     </Draggable>

@@ -30,13 +30,15 @@ function Trello() {
     if (destination?.droppableId === source.droppableId) {
       // 같은 보드에서 움직임
       setToDos((allBoards) => {
-        // 1. 전체 object에서 기존 내용을 복사
+        // 1. 전체 리스트 (To_Do, doing, done)에서 선택된 리스트를 복사
         const copyToDos = [...allBoards[source.droppableId]];
-        // 2. 기존 array에서 선택된 아이템을 삭제
+        // 1.+  선택된 리스트 중 선택된 아이템을 선언
+        const taskObj = copyToDos[source.index];
+        // 2. 선택된 리스트에서 선택된 아이템을 삭제
         copyToDos.splice(source.index, 1);
-        // 3. 새로운 array에 선택된 아이템을 원하는 위치에 넣기
-        copyToDos.splice(destination?.index, 0, draggableId);
-        // 4. 새로 만들어진 array를 바꾸어서 전체 Object를 리턴
+        // 3. 선택된 아이템을 원하는 위치에 넣기
+        copyToDos.splice(destination?.index, 0, taskObj);
+        // 4. 바뀐 내용을 추가하여 전체 리스트를 리턴
         return {
           ...allBoards,
           [source.droppableId]: copyToDos,
@@ -44,15 +46,18 @@ function Trello() {
       })
     }
     if (destination.droppableId !== source.droppableId) {
-      // 다른 보드로 움직임
+      // 다른 리스트로 움직임
       setToDos((allBoards) => {
-        // 1. 선택한 array, 옮겨진 array를 전체 오브젝트에서 복사
+        // 1. 전체 리스트 (To_Do, doing, done)에서 선택된 리스트, 도착 리스트를 복사
         const sourceBoard = [...allBoards[source.droppableId]];
         const destinationBoard = [...allBoards[destination.droppableId]]
-        // 2. 선택한 1번 어레이에서 선택된 아이템 삭제
+        // 1.+ 선택된 리스트 중 선택된 아이템을 선언
+        const taskObj = sourceBoard[source.index];
+        // 2. 선택한 리스트에서 선택된 아이템 삭제
         sourceBoard.splice(source.index, 1);
-        // 3. 옮겨진 1번 array에 선택된 아이템을 원하는 위치에 넣기
-        destinationBoard.splice(destination.index, 0, draggableId);
+        // 3. 도착 리스트에서 선택된 아이템을 원하는 위치에 넣기
+        destinationBoard.splice(destination.index, 0, taskObj);
+        // 4. 바뀐 내용을 추가하여 전체 리스트를 리턴
         return {
           ...allBoards,
           [source.droppableId]: sourceBoard,
