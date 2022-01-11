@@ -1,5 +1,8 @@
-import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
+import {DragDropContext, Draggable, Droppable, DropResult} from 'react-beautiful-dnd';
+import {useRecoilState} from 'recoil';
 import styled from "styled-components";
+import {toDoState} from "./atoms";
+import DraggableCard from "./components/DraggableCard";
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,18 +25,19 @@ const Board = styled.ul`
   background-color: #3F8CF2;
   border-radius: 5px;
 `;
-const Card = styled.li`
-  background-color: #DADFE9;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  padding: 5px 10px;
-`;
 
-const toDos = ["a", "b", "c", "d", "e", "f", "e"]
 
 function Trello() {
-  const onDragEnd = () => {
+  const [toDos, setToDos] = useRecoilState(toDoState);
 
+  const onDragEnd = ({source, destination, draggableId}: DropResult) => {
+    if (!destination) return;
+    setToDos((oldToDos) => {
+      const copyToDos = [...oldToDos];
+      copyToDos.splice(source.index, 1);
+      copyToDos.splice(destination?.index, 0, draggableId);
+      return copyToDos
+    })
   };
 
   return (
@@ -48,21 +52,11 @@ function Trello() {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-
                   {toDos.map((toDo, index) => (
-                    <Draggable draggableId={toDo} index={index} key={index}>
-                      {(provided) => (
-                        <Card ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                        >
-                          {toDo}
-                        </Card>
-                      )}
-                    </Draggable>
+                    <DraggableCard key={toDo} index={index} toDo={toDo}/>
                   ))}
+                  {provided.placeholder}
                 </Board>}
-
             </Droppable>
           </Boards>
         </Wrapper>
